@@ -17,3 +17,6 @@ Working on dashboard
 
 ## Day 5
 Working on the user card
+
+## Day 6 
+Working on the backend
