@@ -20,3 +20,6 @@ Working on the user card
 
 ## Day 6 
 Working on the backend
+
+## Day 7 
+Working on different schema
