@@ -23,3 +23,6 @@ Working on the backend
 
 ## Day 7 
 Working on different schema
+
+## Day 8
+Working on the user schema
