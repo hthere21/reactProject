@@ -26,3 +26,6 @@ Working on different schema
 
 ## Day 8
 Working on the user schema
+
+## Day 9
+Finalize the project
