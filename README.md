@@ -29,3 +29,6 @@ Working on the user schema
 
 ## Day 9
 Finalize the project
+
+## Day 10
+Done
