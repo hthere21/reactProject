@@ -31,4 +31,4 @@ Working on the user schema
 Finalize the project
 
 ## Day 10
-Done
+Done!
