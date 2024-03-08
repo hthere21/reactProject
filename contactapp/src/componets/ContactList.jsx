@@ -4,7 +4,7 @@ import Contact from "./Contact";
 const ContactList = ({ data, currentPage, getAllContacts }) => {
   return (
     <main className="main">
-      {data?.content?.length == 0 && (
+      {data?.content?.length === 0 && (
         <div>No Contacts. Please add more contacts</div>
       )}
 
@@ -19,7 +19,7 @@ const ContactList = ({ data, currentPage, getAllContacts }) => {
         <div className="pagination">
           <a
             onClick={() => getAllContacts(currentPage - 1)}
-            className={0 == currentPage ? "disabled" : ""}
+            className={0 === currentPage ? "disabled" : ""}
           >
             &laquo;
           </a>
@@ -27,7 +27,7 @@ const ContactList = ({ data, currentPage, getAllContacts }) => {
             [...Array(data.totalPages).keys()].map((page, index) => (
               <a
                 onClick={getAllContacts(page)}
-                className={currentPage == page ? "active" : ""}
+                className={currentPage === page ? "active" : ""}
                 key={page}
               >
                 {page + 1}
@@ -35,7 +35,7 @@ const ContactList = ({ data, currentPage, getAllContacts }) => {
             ))}
           <a
             onClick={() => getAllContacts(currentPage + 1)}
-            className={data.totalPages == currentPage + 1 ? "disabled" : ""}
+            className={data.totalPages === currentPage + 1 ? "disabled" : ""}
           >
             &raquo;
           </a>
