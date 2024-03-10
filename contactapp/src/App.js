@@ -1,9 +1,15 @@
 import "./App.css";
 import Header from "./componets/Header";
 import { useEffect, useState, useRef } from "react";
-import { getContacts } from "./api/COntactService";
+import {
+  getContacts,
+  saveContact,
+  updateContact,
+  updatePhoto,
+} from "./api/ContactService.jsx";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ContactList from "./componets/ContactList";
+import ContactDetail from "./componets/ContactDetail.jsx";
 
 function App() {
   const modalRef = useRef();
@@ -31,6 +37,10 @@ function App() {
     }
   };
 
+  const updateContact = async () => {};
+
+  const updateImage = async () => {};
+  
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
@@ -38,7 +48,23 @@ function App() {
   const handleNewContact = async (event) => {
     event.preventDefault();
     try {
-      const response = await saveContact(values);
+      const { data } = await saveContact(values);
+      const formData = new FormData();
+      formData.append("file", file, file.name);
+      formData.append("id", data.id);
+      const { data: photoUrl } = await updatePhoto(formData);
+      toggleModal(false);
+      setFile(undefined);
+      fileRef.current.value = null;
+      setValues({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        title: "",
+        status: "",
+      });
+      getAllContacts();
     } catch (error) {}
   };
   const toggleModal = (show) => {
@@ -63,6 +89,15 @@ function App() {
                   data={data}
                   currentPage={currentPage}
                   getAllContacts={getAllContacts}
+                />
+              }
+            />
+            <Route
+              path="/contacts/:id"
+              element={
+                <ContactDetail
+                  updateContact={updateContact}
+                  updateImage={updateImage}
                 />
               }
             />
