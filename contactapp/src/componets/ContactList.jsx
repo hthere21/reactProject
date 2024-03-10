@@ -8,7 +8,7 @@ const ContactList = ({ data, currentPage, getAllContacts }) => {
         <div>No Contacts. Please add more contacts</div>
       )}
 
-      <ul className="cintact__list">
+      <ul className="contact__list">
         {data?.content?.length > 0 &&
           data.content.map((contact) => (
             <Contact contact={contact} key={contact.id} />
