@@ -26,7 +26,7 @@ function App() {
     status: "",
   });
 
-  const getAllContacts = async (page = 0, size = 10) => {
+  const getAllContacts = async (page = 0, size = 2) => {
     try {
       setCurrentPage(page);
       const { data } = await getContacts(page, size);
@@ -37,10 +37,20 @@ function App() {
     }
   };
 
-  const updateContact = async () => {};
+  const updateContact = async (contact) => {
+    try {
+      const { data } = await saveContact(contact);
+    } catch (error) {}
+  };
 
-  const updateImage = async () => {};
-  
+  const updateImage = async (formData) => {
+    try {
+      const { data: photoUrl } = await updatePhoto(formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };

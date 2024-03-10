@@ -5,6 +5,7 @@ import { getContact } from "../api/ContactService";
 const ContactDetail = ({ updateContact, updateImage }) => {
   const inputRef = useRef();
   const [contact, setContact] = useState({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -16,13 +17,37 @@ const ContactDetail = ({ updateContact, updateImage }) => {
 
   const { id } = useParams();
 
-  const selectImage = () => {};
+  const selectImage = () => {
+    inputRef.current.click();
+  };
 
-  const updatePhoto = () => {};
+  const updatePhoto = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file, file.name);
+      formData.append("id", id);
+      await updateImage(formData);
+      setContact((prev) => ({
+        ...prev,
+        photoUrl: `${prev.photoUrl}?updated_at=${new Date().getTime()}`,
+      }));
+      //   toastSuccess("Photo updated");
+    } catch (error) {
+      console.log(error);
+      //   toastError(error.message);
+    }
+  };
 
-  const onUpdateContact = () => {};
+  const onUpdateContact = async (event) => {
+    event.preventDefault();
+    await updateContact(contact);
+    fetchContact(id);
+    // toastSuccess("Contact Updated");
+  };
 
-  const onChange = () => {};
+  const onChange = (event) => {
+    setContact({ ...contact, [event.target.name]: event.target.value });
+  };
 
   const fetchContact = async (id) => {
     try {
