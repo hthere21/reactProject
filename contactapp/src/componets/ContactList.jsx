@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Contact from "./Contact";
 
 const ContactList = ({ data, currentPage, getAllContacts }) => {
+  // useEffect to handle component mount and updates
+  useEffect(() => {
+    // Here you can perform any side effects you need,
+    // such as fetching data or updating the component state
+    // based on props changes.
+    // For example:
+    console.log("Component mounted or updated");
+
+    // If you need to fetch data when the component mounts,
+    // you can call the getAllContacts function here.
+    // For example:
+    // getAllContacts(currentPage);
+  }, [currentPage]);
+
+  
   return (
     <main className="main">
       {data?.content?.length === 0 && (

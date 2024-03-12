@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getContact } from "../api/ContactService";
+import {
+  toastError,
+  toastSuccess,
+  toastInfo,
+  toastWarning,
+} from "../api/ToastService";
 
 const ContactDetail = ({ updateContact, updateImage }) => {
   const inputRef = useRef();
@@ -31,10 +37,10 @@ const ContactDetail = ({ updateContact, updateImage }) => {
         ...prev,
         photoUrl: `${prev.photoUrl}?updated_at=${new Date().getTime()}`,
       }));
-      //   toastSuccess("Photo updated");
+      toastSuccess("Photo updated");
     } catch (error) {
       console.log(error);
-      //   toastError(error.message);
+      toastError(error.message);
     }
   };
 
@@ -42,7 +48,7 @@ const ContactDetail = ({ updateContact, updateImage }) => {
     event.preventDefault();
     await updateContact(contact);
     fetchContact(id);
-    // toastSuccess("Contact Updated");
+    toastSuccess("Contact Updated");
   };
 
   const onChange = (event) => {
@@ -62,7 +68,7 @@ const ContactDetail = ({ updateContact, updateImage }) => {
 
   return (
     <>
-      <Link to={"/contacts"} className="link">
+      <Link to={"/contacts"}  className="link">
         <i className="bi bi-arrow-left"></i> Back to list
       </Link>
       <div className="profile">

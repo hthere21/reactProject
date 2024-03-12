@@ -1,5 +1,6 @@
 import "./App.css";
 import Header from "./componets/Header";
+import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState, useRef } from "react";
 import {
   getContacts,
@@ -10,6 +11,8 @@ import {
 import { Routes, Route, Navigate } from "react-router-dom";
 import ContactList from "./componets/ContactList";
 import ContactDetail from "./componets/ContactDetail.jsx";
+import { toastError } from "./api/ToastService.jsx";
+import { toast, ToastContainer } from "react-toastify";
 
 function App() {
   const modalRef = useRef();
@@ -26,7 +29,7 @@ function App() {
     status: "",
   });
 
-  const getAllContacts = async (page = 0, size = 2) => {
+  const getAllContacts = async (page = 0, size = 3) => {
     try {
       setCurrentPage(page);
       const { data } = await getContacts(page, size);
@@ -34,13 +37,16 @@ function App() {
       console.log(data);
     } catch (error) {
       console.log(error);
+      toastError(error);
     }
   };
 
   const updateContact = async (contact) => {
     try {
       const { data } = await saveContact(contact);
-    } catch (error) {}
+    } catch (error) {
+      toastError(error);
+    }
   };
 
   const updateImage = async (formData) => {
@@ -48,6 +54,7 @@ function App() {
       const { data: photoUrl } = await updatePhoto(formData);
     } catch (error) {
       console.log(error);
+      toastError(error);
     }
   };
 
@@ -75,7 +82,9 @@ function App() {
         status: "",
       });
       getAllContacts();
-    } catch (error) {}
+    } catch (error) {
+      toastError(error);
+    }
   };
   const toggleModal = (show) => {
     show ? modalRef.current.showModal() : modalRef.current.close();
@@ -211,6 +220,7 @@ function App() {
           </form>
         </div>
       </dialog>
+      <ToastContainer />
     </>
   );
 }
